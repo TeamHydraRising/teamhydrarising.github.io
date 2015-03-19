@@ -1,6 +1,20 @@
 <html>
   <head>
+    <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>skrollr - parallax scrolling for the masses</title>
+
+<link href="./examples/fixed-positioning.css" rel="stylesheet" type="text/css" />
+<link href="./examples/main.css" rel="stylesheet" type="text/css" />
     <style>
+
+    html{
+      width:6000px;
+      height:6000px;
+    }
+
     li{
       font-family: Avenir Next;
       list-style: none;
@@ -12,18 +26,20 @@
 
     div{
       background: -moz-linear-gradient(left, rgba(32,94,164,1) 0%, rgba(37,121,196,1) 39%, rgba(39,135,213,0.69) 59%, rgba(69,154,220,0.5) 71%, rgba(99,172,227,0.5) 83%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(32,94,164,1)), color-stop(39%,rgba(37,121,196,1)), color-stop(59%,rgba(39,135,213,0.69)), color-stop(71%,rgba(69,154,220,0.5)), color-stop(83%,rgba(99,172,227,0.5))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* IE10+ */
-  background: linear-gradient(to right, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#205ea4', endColorstr='#8063ace3',GradientType=1 ); /* IE6-9 */
+      background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(32,94,164,1)), color-stop(39%,rgba(37,121,196,1)), color-stop(59%,rgba(39,135,213,0.69)), color-stop(71%,rgba(69,154,220,0.5)), color-stop(83%,rgba(99,172,227,0.5))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* IE10+ */
+      background: linear-gradient(to right, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#205ea4', endColorstr='#8063ace3',GradientType=1 ); /* IE6-9 */
 
 
-      margin-top: 50px;
+      margin-top: 3%;
+      margin-left: 1%;
       height: 220px;
       width: 600px;
-      position: relative;
+      display: inline-table;
+      position:relative;
       border: 5px solid lightgrey;
     }
 
@@ -74,6 +90,7 @@
 
     ul{
       margin-top:0px;
+      padding-left:0px;
     }
 
     img{
@@ -92,13 +109,39 @@
       color:white;
     }
 
+    .scroll_button{
+      display: inline-block;
+      position:absolute;
+      top:75px;
+      left:530px;
+      width:50px;
+      font-size:10px;
+      background:none;
+      border:none;
+      font-size:18px;
+
+    }
+
   body{
     /*background-color:#f0f4f4;*/
     /*background-color:lightgrey;*/
-    background-color: white;
+    background-color: red;
+    background: -moz-linear-gradient(left, rgba(0,0,0,0.23) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0.23)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+    background: linear-gradient(to right, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+    /*background-image: url('http://www.som.com/FILE/19707/somlondonofficebroadgatetower_1575x900_nickguttridge01jpg.jpg?h=800&s=17');*/
   }
 
-  .map{
+  .dot{
+    background-color:red;
+    border: solid black 3px;
+  }
+
+  /*.map{
     position:absolute;
     left:640px;
     top: -1680px;
@@ -174,20 +217,41 @@ h2{
 .p_sal{
   color:white;
   margin-left:0px;
-}
+}*/
 
 
     </style>
   </head>
   <body id ="frontpage">
-     <script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="./jquery-scrollto/lib/jquery-scrollto.js"
+ <script>
+$(function() {
+  $('a[href*=#]:not([href=#])').click(function() {
+  if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+
+    var target = $(this.hash);
+    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+    if (target.length) {
+      $('html,body').animate({
+        scrollTop: target.offset().top
+      }, 3000);
+      return false;
+    }
+  }
+});
+});
+
+
+</script>
+<script>
      var frontpage = document.querySelector('#frontpage');
 
      var race = ['Black or African-American','Asian','Hispanic or Latino','White or Caucasian','Native American','Alaskan Native','Native Hawaiian','Other Pacific Islander','I prefer not to answer'];
      var dummy = [];
      var gender = ['Male','Female','I prefer not to identify']
 
-     var elements = function(name,image,num,placeholder,subtext,array,id)
+     var elements = function(name,image,num,placeholder,subtext,array,id,next_div)
      {
        this.name = name,
        this.link = "/"+name,
@@ -195,14 +259,30 @@ h2{
        this.size = "100px",
        this.order = num,
        this.placeholder = placeholder,
-       this.id="#"+id;
-       this.input = function(div)
+       this.id=id,
+       this.next_div=next_div,
+       this.input = function(div,button)
        {
          var input = document.createElement('input');
          div.appendChild(input);
+
          input.placeholder = this.placeholder;
          input.setAttribute('id',this.id);
          var value_input = input.value;
+
+         var button = document.createElement('button');
+         div.appendChild(button);
+
+         var a = document.createElement('a');
+         button.appendChild(a);
+         a.href='#'+this.next_div;
+         a.innerText='▶';
+         button.setAttribute('class',"scroll_button");
+
+        //  button.id=this.next_div;
+
+        //  button.type='submit';
+        //  button.formaction='/#'+this.next_div;
        },
        this.subtext = subtext,
        this.array = array,
@@ -227,14 +307,14 @@ h2{
      };
 
 
-     var what_salary =    new elements('What is your salary?','http://images.clipartpanda.com/money-clipart-aceKxL9Ei.png',1,"Enter your base pay","Your anonymous salary will help other job seekers.",dummy,'what_salary');
-     var where_live =     new elements("Where do you live?", 'http://images.clipartpanda.com/shareholder-clipart-wpid-house-clip-art12.gif',2,"Enter your home zip code","Your anonymous salary will help other job seekers.",dummy,'where_live');
+     var what_salary =    new elements('What is your salary?','http://images.clipartpanda.com/money-clipart-aceKxL9Ei.png',1,"Enter your base pay","Your anonymous salary will help other job seekers.",dummy,'what_salary','where_live');
+     var where_live =     new elements("Where do you live?", 'http://images.clipartpanda.com/shareholder-clipart-wpid-house-clip-art12.gif',2,"Enter your home zip code","Your anonymous salary will help other job seekers.",dummy,'where_live','which_industry');
     //  var where_job_loc =  new elements('Where is your job located?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Enter your work zip code","Your anonymous salary will help other job seekers.",dummy);
-     var which_industry = new elements('Which industry do you work in?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Select an option","Your anonymous salary will help other job seekers.",dummy,'which_industry');
-     var what_job_title = new elements('What is your job title?','',4,"Select an option",'',dummy,'what_job_title');
-     var gender =         new elements('What is your gender?','',5,'','',gender,'gender');
-     var age =            new elements('What is your age?','',6,'number','',dummy,'age');
-     var race_ethnic =    new elements('What is your race or ethnicity?','',7,'','Select a box',race,'race_ethnic');
+     var which_industry = new elements('Which industry do you work in?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Select an option","Your anonymous salary will help other job seekers.",dummy,'which_industry','what_job_title');
+     var what_job_title = new elements('What is your job title?','http://www.clipartlord.com/wp-content/uploads/2014/08/clipboard4.png',4,"Select an option",'',dummy,'what_job_title','gender');
+     var gender =         new elements('What is your gender?','',5,'','',gender,'gender','age');
+     var age =            new elements('What is your age?','',6,'number','',dummy,'age','race_ethnic');
+     var race_ethnic =    new elements('What is your race or ethnicity?','',7,'','Select a box',race,'race_ethnic','');
 
      var questions = [what_salary,where_live,which_industry,what_job_title,gender,age,race_ethnic];
 
@@ -242,13 +322,16 @@ h2{
 
      frontpage.appendChild(ul);
 
-     var div_right = document.createElement('div');
-     frontpage.appendChild(div_right);
+    //  var div_right = document.createElement('div');
+    //  frontpage.appendChild(div_right);
 
      questions.forEach(function(obj)
      {
        var div = document.createElement('div');
        ul.appendChild(div);
+       div.setAttribute("id","intro "+obj.id);
+       div.setAttribute('data-0','opacity:1;left:3%;transform:rotate(0deg);transform-origin:0 0;');
+       div.setAttribute('data-500','opacity:0;left:0%');
 
        var li = document.createElement('li');
        div.appendChild(li);
@@ -265,18 +348,28 @@ h2{
        div.appendChild(img);
        img.src=obj.image;
        img.setAttribute('height',obj.size);
+
+       div.onclick = function()
+       {
+        var element = document.getElementsById('#'+obj.next_div);
+        // setTimeout(function(){window.scrollTo(450*obj.order/.74,0);},200);
+        window.scrollTo(450*obj.order/.74,0);
+
+
+        };
      });
 
      var button = document.createElement('button');
      frontpage.appendChild(button);
      button.innerText="Submit";
 
+
      button.onclick = function(value_input)
      {
 
        var div_title = document.createElement('div');
-       div_right.appendChild(div_title);
-       div_right.setAttribute('class','hidden');
+       frontpage.appendChild(div_title);
+       frontpage.setAttribute('class','hidden');
        var p = document.createElement('p');
        div_title.appendChild(p);
        p.innerText="Graphic Designer in Philadelphia, PA";
@@ -284,12 +377,12 @@ h2{
        p.setAttribute('class','p_title');
 
        var img_map = document.createElement('img');
-       div_right.appendChild(img_map);
+       frontpage.appendChild(img_map);
        img_map.src='./map.png';
        img_map.setAttribute('class','map');
 
        var div_range = document.createElement('div');
-       div_right.appendChild(div_range);
+       frontpage.appendChild(div_range);
        div_range.setAttribute('class','div_range');
 
        var ul = document.createElement('ul');
@@ -320,13 +413,29 @@ h2{
          div_sal.appendChild(p);
          p.innerText=sal;
          p.setAttribute('class','p_sal')
-
-
        });
+
 
 
      }
 
      </script>
+     <script type="text/javascript" src="./dist/skrollr.min.js"></script>
+
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="../skrollr-ie/dist/skrollr.ie.min.js"></script>
+  <![endif]-->
+
+  <script type="text/javascript">
+  var s = skrollr.init({
+    edgeStrategy: 'set',
+    easing: {
+      WTF: Math.random,
+      inverted: function(p) {
+        return 1-p;
+      }
+    }
+  });
+  </script>
   </body>
 </html>
