@@ -6,13 +6,12 @@
 
 <title>skrollr - parallax scrolling for the masses</title>
 
-<link href="./examples/fixed-positioning.css" rel="stylesheet" type="text/css" />
-<link href="./examples/main.css" rel="stylesheet" type="text/css" />
+<link href="../examples/fixed-positioning.css" rel="stylesheet" type="text/css" />
+<link href="../examples/main.css" rel="stylesheet" type="text/css" />
     <style>
 
     html{
       width:6000px;
-      height:6000px;
     }
 
     li{
@@ -101,9 +100,9 @@
       height: 50px;
       font-family: Avenir Next;
       font-size: 18px;
-      position:fixed;
-      top:720px;
-      left:720px;
+      position: absolute;
+
+      left:4100px;
       width:200px;
       background: grey;
       color:white;
@@ -330,8 +329,8 @@ $(function() {
        var div = document.createElement('div');
        ul.appendChild(div);
        div.setAttribute("id","intro "+obj.id);
-       div.setAttribute('data-0','opacity:1;left:3%;transform:rotate(0deg);transform-origin:0 0;');
-       div.setAttribute('data-500','opacity:0;left:0%');
+       div.setAttribute('data-0','opacity:1;top:3%;transform:rotate(0deg);transform-origin:0 0;');
+       div.setAttribute('data-500','opacity:0;top:-10%;');
 
        var li = document.createElement('li');
        div.appendChild(li);
@@ -420,7 +419,7 @@ $(function() {
      }
 
      </script>
-     <script type="text/javascript" src="./dist/skrollr.min.js"></script>
+     <script type="text/javascript" src="dist/skrollr.min.js"></script>
 
   <!--[if lt IE 9]>
   <script type="text/javascript" src="../skrollr-ie/dist/skrollr.ie.min.js"></script>
