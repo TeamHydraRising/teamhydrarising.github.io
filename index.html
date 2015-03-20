@@ -11,7 +11,8 @@
     <style>
 
     html{
-      width:6000px;
+      width:5200px;
+      height:300px;
     }
 
     li{
@@ -34,7 +35,7 @@
 
 
       margin-top: 3%;
-      margin-left: 1%;
+      margin-left: 100px;
       height: 220px;
       width: 600px;
       display: inline-table;
@@ -89,7 +90,7 @@
 
     ul{
       margin-top:0px;
-      padding-left:0px;
+      padding-left:200px;
     }
 
     img{
@@ -225,21 +226,21 @@ h2{
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="./jquery-scrollto/lib/jquery-scrollto.js"
  <script>
-$(function() {
-  $('a[href*=#]:not([href=#])').click(function() {
-  if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-
-    var target = $(this.hash);
-    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-    if (target.length) {
-      $('html,body').animate({
-        scrollTop: target.offset().top
-      }, 3000);
-      return false;
-    }
-  }
-});
-});
+// $(function() {
+//   $('a[href*=#]:not([href=#])').click(function() {
+//   if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+//
+//     var target = $(this.hash);
+//     target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+//     if (target.length) {
+//       $(target).animate({
+//         scrollTop: target.offset().top
+//       }, 3000);
+//       return false;
+//     }
+//   }
+// });
+// });
 
 
 </script>
@@ -350,12 +351,43 @@ $(function() {
 
        div.onclick = function()
        {
-        var element = document.getElementsById('#'+obj.next_div);
-        // setTimeout(function(){window.scrollTo(450*obj.order/.74,0);},200);
-        window.scrollTo(450*obj.order/.74,0);
+        var element = document.getElementById('#'+obj.next_div);
+
+        $(div).animate(
+          {
+            opacity: .25
+
+          } , 500,'linear', function()
+          {
+            window.scrollTo(450*obj.order/.74,0);
+          });
+
+        setTimeout(function(){window.scrollTo(900*obj.order,0);},200);
 
 
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('GET','https://agile-eyrie-4387.herokuapp.com/location');
+
+        // xhr.addEventListener('load',function(e)
+        // {
+        //   var d = xhr.responseText;
+        //   window.parsed = JSON.parse(d);
+        //
+        // });
+        // xhr.send();
+
+
+                $.ajax({
+                  method: 'GET',
+                  url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                  data: {zipcode:'10030'}
+                })
+                .done(function(msg)
+                {
+                  console.log(msg);
+                })
         };
+
      });
 
      var button = document.createElement('button');
