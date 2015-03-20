@@ -32,9 +32,7 @@
       background: -ms-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* IE10+ */
       background: linear-gradient(to right, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* W3C */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#205ea4', endColorstr='#8063ace3',GradientType=1 ); /* IE6-9 */
-
-
-      margin-top: 3%;
+      margin-top: 4%;
       margin-left: 100px;
       height: 220px;
       width: 600px;
@@ -267,7 +265,7 @@ h2{
          div.appendChild(input);
 
          input.placeholder = this.placeholder;
-         input.setAttribute('id',this.id);
+        //  input.setAttribute('id',this.id);
          var value_input = input.value;
 
          var button = document.createElement('button');
@@ -332,6 +330,7 @@ h2{
        div.setAttribute("id","intro "+obj.id);
        div.setAttribute('data-0','opacity:1;top:3%;transform:rotate(0deg);transform-origin:0 0;');
        div.setAttribute('data-500','opacity:0;top:-10%;');
+       div.setAttribute('id',obj.id)
 
        var li = document.createElement('li');
        div.appendChild(li);
@@ -351,9 +350,27 @@ h2{
 
        div.onclick = function()
        {
-        var element = document.getElementById('#'+obj.next_div);
+        var element = $('#'+obj.next_div);
 
-        $(div).animate(
+        console.log(element[0].className);
+
+        element[0].setAttribute('class',element[0].className+" selected");
+
+        var not_selected = document.querySelectorAll('div');
+        console.log(not_selected);
+
+
+        for(i=0;i<not_selected.length-1;i++)
+        {
+          if(not_selected[i].classList[2]!=='selected')
+          {
+
+            not_selected[i].setAttribute('class',not_selected[i].className+' not_selected');
+          }
+        }
+
+
+        $('.not_selected').animate(
           {
             opacity: .25
 
