@@ -281,6 +281,64 @@ h2{
 
         //  button.type='submit';
         //  button.formaction='/#'+this.next_div;
+
+        button.onclick = function()
+        {
+         var element = $('#'+next_div);
+
+         console.log(element[0].className);
+
+         element[0].setAttribute('class',element[0].className+" selected");
+
+         var not_selected = document.querySelectorAll('div');
+         console.log(not_selected);
+
+
+         for(i=0;i<not_selected.length-1;i++)
+         {
+           if(not_selected[i].classList[2]!=='selected')
+           {
+
+             not_selected[i].setAttribute('class',not_selected[i].className+' not_selected');
+           }
+         }
+
+
+         $('.not_selected').animate(
+           {
+             opacity: .25
+
+           } , 500,'linear', function()
+           {
+             window.scrollTo(450*num/.74,0);
+           });
+
+         setTimeout(function(){window.scrollTo(900*num,0);},200);
+
+
+         // var xhr = new XMLHttpRequest();
+         // xhr.open('GET','https://agile-eyrie-4387.herokuapp.com/location');
+
+         // xhr.addEventListener('load',function(e)
+         // {
+         //   var d = xhr.responseText;
+         //   window.parsed = JSON.parse(d);
+         //
+         // });
+         // xhr.send();
+
+
+                 $.ajax({
+                   method: 'GET',
+                   url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                   data: {zipcode:'10030'}
+                 })
+                 .done(function(msg)
+                 {
+                   console.log(msg);
+                 })
+         };
+
        },
        this.subtext = subtext,
        this.array = array,
@@ -348,64 +406,21 @@ h2{
        img.src=obj.image;
        img.setAttribute('height',obj.size);
 
-       div.onclick = function()
-       {
-        var element = $('#'+obj.next_div);
-
-        console.log(element[0].className);
-
-        element[0].setAttribute('class',element[0].className+" selected");
-
-        var not_selected = document.querySelectorAll('div');
-        console.log(not_selected);
-
-
-        for(i=0;i<not_selected.length-1;i++)
-        {
-          if(not_selected[i].classList[2]!=='selected')
-          {
-
-            not_selected[i].setAttribute('class',not_selected[i].className+' not_selected');
-          }
-        }
-
-
-        $('.not_selected').animate(
-          {
-            opacity: .25
-
-          } , 500,'linear', function()
-          {
-            window.scrollTo(450*obj.order/.74,0);
-          });
-
-        setTimeout(function(){window.scrollTo(900*obj.order,0);},200);
-
-
-        // var xhr = new XMLHttpRequest();
-        // xhr.open('GET','https://agile-eyrie-4387.herokuapp.com/location');
-
-        // xhr.addEventListener('load',function(e)
-        // {
-        //   var d = xhr.responseText;
-        //   window.parsed = JSON.parse(d);
-        //
-        // });
-        // xhr.send();
-
-
-                $.ajax({
-                  method: 'GET',
-                  url: 'https://agile-eyrie-4387.herokuapp.com/locations',
-                  data: {zipcode:'10030'}
-                })
-                .done(function(msg)
-                {
-                  console.log(msg);
-                })
-        };
 
      });
+
+     ul.onclick = function()
+     {
+       $.ajax({
+         method: 'GET',
+         url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+         data: {zipcode:'10030'}
+       })
+       .done(function(msg)
+       {
+         console.log(msg);
+       })
+     };
 
      var button = document.createElement('button');
      frontpage.appendChild(button);
@@ -462,8 +477,6 @@ h2{
          p.innerText=sal;
          p.setAttribute('class','p_sal')
        });
-
-
 
      }
 
