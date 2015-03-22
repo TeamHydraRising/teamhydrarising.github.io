@@ -344,16 +344,15 @@ h2{
         button.onclick = function()
         {
          var element = $('#'+next_div);
-         element[0].setAttribute('class',element[0].className+" selected");
+         var classes = element[0].classList;
+         element[0].setAttribute('class',classes[0]+" "+classes[1]+" "+classes[2]+" selected");
          var not_selected = $('.questions');
 
-         console.log(not_selected);
-
-         for(i=0;i<not_selected.length-1;i++)
+         for(i=0;i<not_selected.length;i++)
          {
-           if(not_selected[i].classList[3]!=='selected')
+           if(not_selected[i]!==element[0])
            {
-             not_selected[i].setAttribute('class',not_selected[i].className+' not_selected');
+             not_selected[i].setAttribute('class',not_selected[i].classList[0]+" "+not_selected[i].classList[1]+" "+not_selected[i].classList[2]+' not_selected');
            }
          }
 
@@ -470,12 +469,15 @@ h2{
            p_gender.innerText=g[Object.keys(g)][0];
            p_gender.setAttribute('id','p_gender');
 
-          //  var ul = document.createElement('ul');
-          //  div_gender.appendChild(ul);
-          //  var li = document.createElement('li');
-          //  ul.appendChild(li);
-          //  li.innerText=g[Object.keys(g)][0];
-          //  li.id="checkbox_list";
+           var button = document.createElement('button');
+           div.appendChild(button);
+
+           var a = document.createElement('a');
+           button.appendChild(a);
+           a.href='#'+next_div;
+           a.innerText='▶';
+           button.setAttribute('class',"scroll_button");
+
 
          });
 
