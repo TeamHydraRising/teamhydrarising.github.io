@@ -10,10 +10,11 @@
 <link href="../examples/main.css" rel="stylesheet" type="text/css" />
     <style>
 
-    a{
+    #triangle{
       text-decoration:none;
       color:white;
       font-size:28px;
+      margin-left: 0px;
     }
     html{
       width:5200px;
@@ -330,16 +331,12 @@ h2{
          var button = document.createElement('button');
          div.appendChild(button);
 
-         var a = document.createElement('a');
-         button.appendChild(a);
-         a.href='#'+this.next_div;
-         a.innerText='▶';
+         var p = document.createElement('p');
+         button.appendChild(p);
+         p.id="triangle";
+        //  a.href='#'+this.next_div;
+         p.innerText='▶';
          button.setAttribute('class',"scroll_button");
-
-        //  button.id=this.next_div;
-
-        //  button.type='submit';
-        //  button.formaction='/#'+this.next_div;
 
         button.onclick = function()
         {
@@ -357,15 +354,17 @@ h2{
          }
 
          $('.not_selected').animate(
-           {
-             opacity: .25
-
-           } , 500,'linear', function()
-           {
-             window.scrollTo(450*num/.74,0);
+           {opacity: .25} ,{
+             duration:1000
            });
 
-         setTimeout(function(){window.scrollTo(900*num,0);},200);
+
+        setTimeout(function(){window.scrollTo(700*num,0);},200);
+
+        $('.selected').animate(
+          {opacity: 1}, {
+              duration:1000
+          });
 
 
          // var xhr = new XMLHttpRequest();
@@ -472,15 +471,52 @@ h2{
            var button = document.createElement('button');
            div.appendChild(button);
 
-           var a = document.createElement('a');
-           button.appendChild(a);
-           a.href='#'+next_div;
-           a.innerText='▶';
+           var p = document.createElement('p');
+           button.appendChild(p);
+           p.innerText='▶';
            button.setAttribute('class',"scroll_button");
+           p.id="triangle";
 
+           button.onclick = function()
+           {
+            var element = $('#'+next_div);
+            var classes = element[0].classList;
+            element[0].setAttribute('class',classes[0]+" "+classes[1]+" "+classes[2]+" selected");
+            var not_selected = $('.questions');
+
+            for(i=0;i<not_selected.length;i++)
+            {
+              if(not_selected[i]!==element[0])
+              {
+                not_selected[i].setAttribute('class',not_selected[i].classList[0]+" "+not_selected[i].classList[1]+" "+not_selected[i].classList[2]+' not_selected');
+              }
+            }
+
+            $('.not_selected').animate(
+              {opacity: .25} ,{
+                duration:1000
+              });
+
+
+           setTimeout(function(){window.scrollTo(700*num,0);},200);
+
+           $('.selected').animate(
+             {opacity: 1}, {
+                 duration:1000
+             });
+
+                    $.ajax({
+                      method: 'GET',
+                      url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                      data: {zipcode:'10030'}
+                    })
+                    .done(function(msg)
+                    {
+                      console.log(msg);
+                    })
+            };
 
          });
-
 
        };
 
