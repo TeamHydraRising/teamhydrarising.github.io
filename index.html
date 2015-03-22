@@ -10,6 +10,11 @@
 <link href="../examples/main.css" rel="stylesheet" type="text/css" />
     <style>
 
+    a{
+      text-decoration:none;
+      color:white;
+      font-size:28px;
+    }
     html{
       width:5200px;
       height:300px;
@@ -24,14 +29,9 @@
       color: white;
     }
 
-    div{
-      background: -moz-linear-gradient(left, rgba(32,94,164,1) 0%, rgba(37,121,196,1) 39%, rgba(39,135,213,0.69) 59%, rgba(69,154,220,0.5) 71%, rgba(99,172,227,0.5) 83%); /* FF3.6+ */
-      background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(32,94,164,1)), color-stop(39%,rgba(37,121,196,1)), color-stop(59%,rgba(39,135,213,0.69)), color-stop(71%,rgba(69,154,220,0.5)), color-stop(83%,rgba(99,172,227,0.5))); /* Chrome,Safari4+ */
-      background: -webkit-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* Chrome10+,Safari5.1+ */
-      background: -o-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* Opera 11.10+ */
-      background: -ms-linear-gradient(left, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* IE10+ */
-      background: linear-gradient(to right, rgba(32,94,164,1) 0%,rgba(37,121,196,1) 39%,rgba(39,135,213,0.69) 59%,rgba(69,154,220,0.5) 71%,rgba(99,172,227,0.5) 83%); /* W3C */
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#205ea4', endColorstr='#8063ace3',GradientType=1 ); /* IE6-9 */
+    .questions{
+      background-color:#E56F0F;
+        /*opacity: .1;*/
       margin-top: 4%;
       margin-left: 100px;
       height: 220px;
@@ -39,6 +39,7 @@
       display: inline-table;
       position:relative;
       border: 5px solid lightgrey;
+      border-radius:15px;
     }
 
     input{
@@ -83,7 +84,10 @@
     }
 
     input.checkbox{
-      margin-top:-18px;
+      margin-top:0px;
+      margin-left: 0px;
+      width:20px;
+      height:20px;
     }
 
     ul{
@@ -93,6 +97,7 @@
 
     img{
       margin-left:70px;
+      float: left;
     }
 
     button{
@@ -123,14 +128,15 @@
   body{
     /*background-color:#f0f4f4;*/
     /*background-color:lightgrey;*/
-    background-color: red;
-    background: -moz-linear-gradient(left, rgba(0,0,0,0.23) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0.23)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-    background: linear-gradient(to right, rgba(0,0,0,0.23) 0%,rgba(0,0,0,0) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3b000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+    background: rgb(226,163,4); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(226,163,4,1) 0%, rgba(234,0,39,1) 58%, rgba(137,2,5,1) 96%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,163,4,1)), color-stop(58%,rgba(234,0,39,1)), color-stop(96%,rgba(137,2,5,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2a304', endColorstr='#890205',GradientType=0 ); /* IE6-9 */
+
     /*background-image: url('http://www.som.com/FILE/19707/somlondonofficebroadgatetower_1575x900_nickguttridge01jpg.jpg?h=800&s=17');*/
   }
 
@@ -138,6 +144,53 @@
     background-color:red;
     border: solid black 3px;
   }
+
+  div#div_wages{
+    border:none;
+    background-color: none;
+    height:20px;
+    width:230px;
+    position:relative;
+    margin:0px 00px 0px 40px;
+  }
+
+  #div_usd{
+    background-color: green;
+    width:100px;
+    height:16px;
+    float: left;
+    margin-right: 20px;
+    padding-top:4px;
+    border-radius: 5px;
+    color:white;
+  }
+
+  select{
+    float: left;
+    width:100px;
+    font-family:Avenir Next:
+  }
+
+  #div_gender{
+    position: relative;
+    border: 2px solid grey;
+    width:100px;
+    height:120px;
+    float:left;
+    margin-left:20px;
+    background-color: lightgrey;
+  }
+
+  #img_gender{
+    margin-left: 0px;
+    position: absolute;
+  }
+
+  #p_gender{
+    margin-left:35px;
+    margin-top:100px;
+  }
+
 
   /*.map{
     position:absolute;
@@ -247,7 +300,10 @@ h2{
 
      var race = ['Black or African-American','Asian','Hispanic or Latino','White or Caucasian','Native American','Alaskan Native','Native Hawaiian','Other Pacific Islander','I prefer not to answer'];
      var dummy = [];
-     var gender = ['Male','Female','I prefer not to identify']
+     var gender = ['Male','Female','I prefer not to identify'];
+     var options = ['Yearly','Monthly','Hourly'];
+
+     var gender_pic = [{male: ['Male','http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-symbols-shapes/016923-3d-transparent-glass-icon-symbols-shapes-male-symbol1-sc48.png']},{female: ['Female','http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-symbols-shapes/016922-3d-transparent-glass-icon-symbols-shapes-female-symbol2-sc48.png']}];
 
      var elements = function(name,image,num,placeholder,subtext,array,id,next_div)
      {
@@ -261,6 +317,9 @@ h2{
        this.next_div=next_div,
        this.input = function(div,button)
        {
+
+         if(div.id!=='gender')
+         {
          var input = document.createElement('input');
          div.appendChild(input);
 
@@ -285,24 +344,18 @@ h2{
         button.onclick = function()
         {
          var element = $('#'+next_div);
-
-         console.log(element[0].className);
-
          element[0].setAttribute('class',element[0].className+" selected");
+         var not_selected = $('.questions');
 
-         var not_selected = document.querySelectorAll('div');
          console.log(not_selected);
-
 
          for(i=0;i<not_selected.length-1;i++)
          {
-           if(not_selected[i].classList[2]!=='selected')
+           if(not_selected[i].classList[3]!=='selected')
            {
-
              not_selected[i].setAttribute('class',not_selected[i].className+' not_selected');
            }
          }
-
 
          $('.not_selected').animate(
            {
@@ -338,6 +391,7 @@ h2{
                    console.log(msg);
                  })
          };
+       };
 
        },
        this.subtext = subtext,
@@ -359,18 +413,87 @@ h2{
            li.innerText=obj;
            li.id="checkbox_list";
          });
+       },
+       this.select = function(div)
+       {
+
+         if(div.id==="what_salary")
+         {
+
+         var div_wages = document.createElement('div');
+         div.appendChild(div_wages);
+         div_wages.id="div_wages";
+
+         var div_usd = document.createElement('div');
+         div_wages.appendChild(div_usd);
+         div_usd.id='div_usd';
+
+         var p_usd = document.createElement('p');
+         div_usd.appendChild(p_usd);
+         p_usd.innerText='USD';
+
+         var select = document.createElement('select');
+         div_wages.appendChild(select);
+
+         options.forEach(function(o)
+         {
+           var drop_val = document.createElement('option');
+           select.appendChild(drop_val);
+          drop_val.value=o;
+          drop_val.innerText=o;
+         });
+       };
+
+       if(div.id==='gender')
+       {
+         gender_pic.forEach(function(g)
+         {
+           var div_gender = document.createElement('div');
+           div.appendChild(div_gender);
+           div_gender.setAttribute('id','div_gender');
+
+           var img_gender = document.createElement('img');
+           div_gender.appendChild(img_gender);
+
+           img_gender.src=g[Object.keys(g)][1];
+           img_gender.setAttribute('height','100px');
+           img_gender.setAttribute('id','img_gender');
+
+           var checkbox = document.createElement('input');
+           div_gender.appendChild(checkbox);
+           checkbox.setAttribute('type','checkbox');
+           checkbox.name=g[Object.keys(g)][0];
+           checkbox.setAttribute('class','checkbox');
+
+           var p_gender = document.createElement('p');
+           div_gender.appendChild(p_gender);
+           p_gender.innerText=g[Object.keys(g)][0];
+           p_gender.setAttribute('id','p_gender');
+
+          //  var ul = document.createElement('ul');
+          //  div_gender.appendChild(ul);
+          //  var li = document.createElement('li');
+          //  ul.appendChild(li);
+          //  li.innerText=g[Object.keys(g)][0];
+          //  li.id="checkbox_list";
+
+         });
+
+
+       };
+
        }
      };
 
 
-     var what_salary =    new elements('What is your salary?','http://images.clipartpanda.com/money-clipart-aceKxL9Ei.png',1,"Enter your base pay","Your anonymous salary will help other job seekers.",dummy,'what_salary','where_live');
-     var where_live =     new elements("Where do you live?", 'http://images.clipartpanda.com/shareholder-clipart-wpid-house-clip-art12.gif',2,"Enter your home zip code","Your anonymous salary will help other job seekers.",dummy,'where_live','which_industry');
+     var what_salary =    new elements('What is your salary?','http://images.clipartpanda.com/money-clipart-aceKxL9Ei.png',1,"Enter your base pay","Your anonymous salary will help other job seekers.",dummy,'what_salary','where_live',options);
+     var where_live =     new elements("Where do you live?", 'http://images.clipartpanda.com/shareholder-clipart-wpid-house-clip-art12.gif',2,"Enter your home zip code","Your anonymous salary will help other job seekers.",dummy,'where_live','which_industry',dummy);
     //  var where_job_loc =  new elements('Where is your job located?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Enter your work zip code","Your anonymous salary will help other job seekers.",dummy);
-     var which_industry = new elements('Which industry do you work in?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Select an option","Your anonymous salary will help other job seekers.",dummy,'which_industry','what_job_title');
-     var what_job_title = new elements('What is your job title?','http://www.clipartlord.com/wp-content/uploads/2014/08/clipboard4.png',4,"Select an option",'',dummy,'what_job_title','gender');
-     var gender =         new elements('What is your gender?','',5,'','',gender,'gender','age');
-     var age =            new elements('What is your age?','',6,'number','',dummy,'age','race_ethnic');
-     var race_ethnic =    new elements('What is your race or ethnicity?','',7,'','Select a box',race,'race_ethnic','');
+     var which_industry = new elements('Which industry do you work in?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Select an option","Your anonymous salary will help other job seekers.",dummy,'which_industry','what_job_title',dummy);
+     var what_job_title = new elements('What is your job title?','http://www.clipartlord.com/wp-content/uploads/2014/08/clipboard4.png',4,"Select an option",'',dummy,'what_job_title','gender',dummy);
+     var gender =         new elements('What is your gender?','',5,'','',dummy,'gender','age',dummy);
+     var age =            new elements('What is your age?','',6,'number','',dummy,'age','race_ethnic',dummy);
+     var race_ethnic =    new elements('What is your race or ethnicity?','',7,'','Select a box',race,'race_ethnic','',dummy);
 
      var questions = [what_salary,where_live,which_industry,what_job_title,gender,age,race_ethnic];
 
@@ -389,6 +512,7 @@ h2{
        div.setAttribute('data-0','opacity:1;top:3%;transform:rotate(0deg);transform-origin:0 0;');
        div.setAttribute('data-500','opacity:0;top:-10%;');
        div.setAttribute('id',obj.id)
+       div.setAttribute('class','questions')
 
        var li = document.createElement('li');
        div.appendChild(li);
@@ -406,6 +530,7 @@ h2{
        img.src=obj.image;
        img.setAttribute('height',obj.size);
 
+       obj.select(div);
 
      });
 
