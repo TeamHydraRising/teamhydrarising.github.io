@@ -126,6 +126,11 @@
 
     }
 
+    path{
+      fill: none;
+      stroke: black 5px solid;
+    }
+
   body{
     /*background-color:#f0f4f4;*/
     /*background-color:lightgrey;*/
@@ -190,6 +195,11 @@
   #p_gender{
     margin-left:35px;
     margin-top:100px;
+  }
+
+  h2{
+    font-family: Avenir Next;
+    color:white;
   }
 
 
@@ -272,37 +282,38 @@ h2{
 }*/
 
 
+
+
+.q0-9 { fill:#004F44; }
+.q1-9 { fill:#009B7C; }
+.q2-9 { fill:#3CBB90; }
+.q3-9 { fill:#B9DEBD; }
+.q4-9 { fill:#d5edea; }
+.q5-9 { fill:#FBAF4D; }
+.q6-9 { fill:#FF8E88; }
+.q7-9 { fill:#FF473D; }
+.q8-9 { fill:#FF180E; }
+.q9-9 { fill:#BF0A00; }
+
     </style>
   </head>
   <body id ="frontpage">
+
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="./jquery-scrollto/lib/jquery-scrollto.js"
- <script>
-// $(function() {
-//   $('a[href*=#]:not([href=#])').click(function() {
-//   if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-//
-//     var target = $(this.hash);
-//     target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-//     if (target.length) {
-//       $(target).animate({
-//         scrollTop: target.offset().top
-//       }, 3000);
-//       return false;
-//     }
-//   }
-// });
-// });
-
-
-</script>
+  <script src="./jquery-scrollto/lib/jquery-scrollto.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 <script>
      var frontpage = document.querySelector('#frontpage');
-
      var race = ['Black or African-American','Asian','Hispanic or Latino','White or Caucasian','Native American','Alaskan Native','Native Hawaiian','Other Pacific Islander','I prefer not to answer'];
      var dummy = [];
      var gender = ['Male','Female','I prefer not to identify'];
      var options = ['Yearly','Monthly','Hourly'];
+     var zip_input = [];
 
      var gender_pic = [{male: ['Male','http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-symbols-shapes/016923-3d-transparent-glass-icon-symbols-shapes-male-symbol1-sc48.png']},{female: ['Female','http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-transparent-glass-icons-symbols-shapes/016922-3d-transparent-glass-icon-symbols-shapes-female-symbol2-sc48.png']}];
 
@@ -318,6 +329,86 @@ h2{
        this.next_div=next_div,
        this.input = function(div,button)
        {
+         var createPage = function(value_input)
+           {
+
+           var xhr = new XMLHttpRequest();
+           xhr.open("GET","http://localhost:3000/DP03_0062E");
+           xhr.send();
+           xhr.addEventListener("load",function(e)
+             {
+             var d = xhr.responseText;
+             var min_max = JSON.parse(d);
+             console.log(min_max);
+             var domain = _.find(min_max, function(o){return o.county_c_id==='DP03_0062E';});
+             var rateById = d3.map();
+
+             var quantize = d3.scale.quantize()
+             .domain([domain.county_min,domain.county_max])
+             .range(d3.range(5).map(function(i){return "q"+i+"-9"}));
+
+             var projection = d3.geo.albersUsa()
+             .scale(1000)
+             .translate([width / 2, height / 2]);
+
+             var path = d3.geo.path()
+             .projection(projection);
+
+             var headerdiv = d3.select('#dynamic').append('div').attr('class','headerdiv');
+             var header1 = d3.select('.headerdiv').append('h1').attr('class','title_header');
+             var header2 = d3.select('.headerdiv').append('h2').attr('class','title_header');
+             var header3 = d3.select('.headerdiv').append('h3').attr('class','title_header');
+             var header4 = d3.select('.headerdiv').append('h4').attr('class','title_header');
+             var header5 = d3.select('.headerdiv').append('h5').attr('class','title_header');
+             var header2_zip = d3.select('.headerdiv').append('h2').attr('class','title_header');
+
+
+             queue()
+             .defer(d3.json,"./us_counties_fips.json")
+             .defer(d3.json,'./DP03_0062E.json')
+             .await(ready);
+
+             function ready(err,usa,json)
+               {
+
+               json.forEach(function(obj)
+                 {
+                 rateById.set(obj.id,+obj.rate);
+                 })
+               svg.append("g")
+               .attr("class","counties")
+               .selectAll("path")
+               .data(topojson.feature(usa,usa.objects.counties).features)
+               .enter().append("path")
+               .attr("class",function(d){if (rateById.get(d.id) <= input.value) return quantize(rateById.get(d.id))})
+               .attr("d",path)
+
+                 header2.html('Where you can afford to live...');
+                 header3.html('counties in the US with median incomes below $'+input.value);
+
+
+
+                 d3.selectAll('.title_header')
+                 .attr("class", 'first_dataset');
+
+               svg.selectAll(".place-label")
+               .data(topojson.feature(usa,usa.objects.places_usa).features)
+               .enter().append("text")
+               .attr("class","place-level")
+               .attr("transform",function(d){ return "translate(" + projection(d.geometry.coordinates) + ")"; })
+               .attr("x", function(d){ return d.geometry.coordinates[0] > -1? 6: -6;})
+               .attr("dy",".35em")
+               .style("text-anchor", function(d){ return d.geometry.coordinates[0] > -1? "start": "end";})
+               .text(function(d) { return d.properties.name;})
+               .attr("class", function(d){ return d.properties.name.replace(/\s/g,"_")+" place-level"})
+
+               };
+               d3.selectAll(".first_dataset")
+               .style('display','none');
+
+             });
+
+           };
 
          if(div.id!=='gender')
          {
@@ -325,7 +416,6 @@ h2{
          div.appendChild(input);
 
          input.placeholder = this.placeholder;
-        //  input.setAttribute('id',this.id);
          var value_input = input.value;
 
          var button = document.createElement('button');
@@ -334,7 +424,6 @@ h2{
          var p = document.createElement('p');
          button.appendChild(p);
          p.id="triangle";
-        //  a.href='#'+this.next_div;
          p.innerText='▶';
          button.setAttribute('class',"scroll_button");
 
@@ -358,37 +447,140 @@ h2{
              duration:1000
            });
 
-
         setTimeout(function(){window.scrollTo(700*num,0);},200);
 
         $('.selected').animate(
           {opacity: 1}, {
               duration:1000
           });
-
-
-         // var xhr = new XMLHttpRequest();
-         // xhr.open('GET','https://agile-eyrie-4387.herokuapp.com/location');
-
-         // xhr.addEventListener('load',function(e)
-         // {
-         //   var d = xhr.responseText;
-         //   window.parsed = JSON.parse(d);
-         //
-         // });
-         // xhr.send();
-
-
-                 $.ajax({
-                   method: 'GET',
-                   url: 'https://agile-eyrie-4387.herokuapp.com/locations',
-                   data: {zipcode:'10030'}
-                 })
-                 .done(function(msg)
-                 {
-                   console.log(msg);
-                 })
+                //  $.ajax({
+                //    method: 'GET',
+                //    url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                //    data: {zipcode:'10030'}
+                //  })
+                //  .done(function(msg)
+                //  {
+                //    console.log(msg);
+                //  })
          };
+
+         if(div.id==='what_salary')
+         {
+
+         var div_dynam = document.createElement('div');
+         frontpage.appendChild(div_dynam);
+         div_dynam.id="dynamic";
+
+
+         var width=860;
+         var height=550;
+
+         var svg = d3.select("#dynamic").append("svg")
+         .attr("width",width)
+         .attr("height",height);
+
+           input.addEventListener('keydown',function(evt)
+           {
+             if(evt.keyCode===13)
+             {
+             console.log(input.value);
+             createPage(value_input);
+             };
+           });
+         };
+
+         if(div.id==='where_live')
+         {
+         input.addEventListener('keydown',function(evt)
+         {
+           if(evt.keyCode===13)
+           {
+           console.log(input.value);
+           var xhr = new XMLHttpRequest();
+           xhr.open("GET","http://api.census.gov/data/2013/acs5/profile?get=DP03_0062E&for=zip+code+tabulation+area:"+input.value);
+           xhr.send();
+           xhr.addEventListener("load",function(e)
+             {
+             var d = xhr.responseText;
+             var min_max = JSON.parse(d);
+             console.log(min_max);
+             var domain = _.find(min_max, function(o){return o.county_c_id==='DP03_0062E';});
+             var rateById = d3.map();
+
+             var headerdiv = d3.select('#dynamic').append('div').attr('class','headerdiv');
+             var header1 = d3.select('.headerdiv').append('h1').attr('class','title_header');
+             var header2 = d3.select('.headerdiv').append('h2').attr('class','title_header');
+             var header3 = d3.select('.headerdiv').append('h3').attr('class','title_header');
+             var header2_education = d3.select('.headerdiv').append('h2').attr('class','title_header');
+             var header3_bachelor = d3.select('.headerdiv').append('h3').attr('class','title_header');
+             var header3_graduate = d3.select('.headerdiv').append('h3').attr('class','title_header');
+             var header2_zip = d3.select('.headerdiv').append('h2').attr('class','title_header');
+             var header3_zip = d3.select('.headerdiv').append('h3').attr('class','title_header');
+             var header2_house = d3.select('.headerdiv').append('h2').attr('class','title_header');
+             var header3_house = d3.select('.headerdiv').append('h3').attr('class','title_header');
+
+             queue()
+             .defer(d3.json,"./us_counties_fips.json")
+             .await(ready);
+
+             function ready(err,usa)
+               {
+
+                 header2_zip.html('What is the median income in my neighborhood...');
+                 header3_zip.html('$'+min_max[1][0]);
+
+                 var xhr = new XMLHttpRequest();
+                 xhr.open("GET","http://api.census.gov/data/2013/acs5/profile?get=DP04_0088E&for=zip+code+tabulation+area:"+input.value);
+                 xhr.send();
+                 xhr.addEventListener("load",function(e)
+                   {
+                   var d = xhr.responseText;
+                   var min_max = JSON.parse(d);
+
+                   header2_house.html('What is the median housing value in my neighborhood...');
+                   header3_house.html('$'+min_max[1][0]);
+
+                   var xhr1 = new XMLHttpRequest();
+                   xhr1.open("GET","http://api.census.gov/data/2013/acs5/profile?get=DP02_0064PE&for=zip+code+tabulation+area:"+input.value);
+                   xhr1.send();
+                   xhr1.addEventListener("load",function(e)
+                     {
+                     var d = xhr1.responseText;
+                     var min_max = JSON.parse(d);
+
+                     header2_education.html('What is the educational attainment in my neighborhood?');
+                     header3_bachelor.html("People 25 years and older with Bachelor's Degrees: "+min_max[1][0]+" %");
+
+                     var xhr2 = new XMLHttpRequest();
+                     xhr2.open("GET","http://api.census.gov/data/2013/acs5/profile?get=DP02_0065PE&for=zip+code+tabulation+area:"+input.value);
+                     xhr2.send();
+                     xhr2.addEventListener("load",function(e)
+                       {
+                       var d = xhr2.responseText;
+                       var min_max = JSON.parse(d);
+
+                       header3_graduate.html("People 25 years and older with Graduate Degrees: "+min_max[1][0]+" %");
+                     });
+
+                   });
+
+
+                 });
+
+
+
+                 //
+                //  d3.selectAll('.title_header')
+                //  .attr("class", 'first_dataset');
+               };
+             });
+
+           };
+         });
+         };
+
+
+
        };
 
        },
@@ -414,7 +606,6 @@ h2{
        },
        this.select = function(div)
        {
-
          if(div.id==="what_salary")
          {
 
@@ -504,16 +695,15 @@ h2{
              {opacity: 1}, {
                  duration:1000
              });
-
-                    $.ajax({
-                      method: 'GET',
-                      url: 'https://agile-eyrie-4387.herokuapp.com/locations',
-                      data: {zipcode:'10030'}
-                    })
-                    .done(function(msg)
-                    {
-                      console.log(msg);
-                    })
+                    // $.ajax({
+                    //   method: 'GET',
+                    //   url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                    //   data: {zipcode:'10030'}
+                    // })
+                    // .done(function(msg)
+                    // {
+                    //   console.log(msg);
+                    // })
             };
 
          });
@@ -526,12 +716,11 @@ h2{
 
      var what_salary =    new elements('What is your salary?','http://images.clipartpanda.com/money-clipart-aceKxL9Ei.png',1,"Enter your base pay","Your anonymous salary will help other job seekers.",dummy,'what_salary','where_live',options);
      var where_live =     new elements("Where do you live?", 'http://images.clipartpanda.com/shareholder-clipart-wpid-house-clip-art12.gif',2,"Enter your home zip code","Your anonymous salary will help other job seekers.",dummy,'where_live','which_industry',dummy);
-    //  var where_job_loc =  new elements('Where is your job located?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Enter your work zip code","Your anonymous salary will help other job seekers.",dummy);
      var which_industry = new elements('Which industry do you work in?', 'http://www.clker.com/cliparts/z/0/n/q/w/7/applications-office-md.png',3,"Select an option","Your anonymous salary will help other job seekers.",dummy,'which_industry','what_job_title',dummy);
      var what_job_title = new elements('What is your job title?','http://www.clipartlord.com/wp-content/uploads/2014/08/clipboard4.png',4,"Select an option",'',dummy,'what_job_title','gender',dummy);
      var gender =         new elements('What is your gender?','',5,'','',dummy,'gender','age',dummy);
-     var age =            new elements('What is your age?','',6,'number','',dummy,'age','race_ethnic',dummy);
-     var race_ethnic =    new elements('What is your race or ethnicity?','',7,'','Select a box',race,'race_ethnic','',dummy);
+     var age =            new elements('What is your age?','http://www.clker.com/cliparts/a/e/q/U/v/e/6th-birthday-cake-md.png',6,'number','',dummy,'age','race_ethnic',dummy);
+     var race_ethnic =    new elements('What is your race or ethnicity?','http://www.clker.com/cliparts/e/1/b/5/122797425070769670rg1024_earth_globe.svg.med.png',7,'','Select a box',race,'race_ethnic','',dummy);
 
      var questions = [what_salary,where_live,which_industry,what_job_title,gender,age,race_ethnic];
 
@@ -539,8 +728,7 @@ h2{
 
      frontpage.appendChild(ul);
 
-    //  var div_right = document.createElement('div');
-    //  frontpage.appendChild(div_right);
+
 
      questions.forEach(function(obj)
      {
@@ -572,76 +760,77 @@ h2{
 
      });
 
-     ul.onclick = function()
-     {
-       $.ajax({
-         method: 'GET',
-         url: 'https://agile-eyrie-4387.herokuapp.com/locations',
-         data: {zipcode:'10030'}
-       })
-       .done(function(msg)
-       {
-         console.log(msg);
-       })
-     };
+    //  ul.onclick = function()
+    //  {
+    //    $.ajax({
+    //      method: 'GET',
+    //      url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+    //      data: {zipcode:'10030'}
+    //    })
+    //    .done(function(msg)
+    //    {
+    //      console.log(msg);
+    //    })
+    //  };
 
      var button = document.createElement('button');
      frontpage.appendChild(button);
      button.innerText="Submit";
 
 
-     button.onclick = function(value_input)
-     {
+    //  button.onclick = function(value_input)
+    //  {
 
-       var div_title = document.createElement('div');
-       frontpage.appendChild(div_title);
-       frontpage.setAttribute('class','hidden');
-       var p = document.createElement('p');
-       div_title.appendChild(p);
-       p.innerText="Graphic Designer in Philadelphia, PA";
-       div_title.setAttribute('class','div_title');
-       p.setAttribute('class','p_title');
 
-       var img_map = document.createElement('img');
-       frontpage.appendChild(img_map);
-       img_map.src='./map.png';
-       img_map.setAttribute('class','map');
+      //  var div_title = document.createElement('div');
+      //  frontpage.appendChild(div_title);
+      //  frontpage.setAttribute('class','hidden');
+      //  var p = document.createElement('p');
+      //  div_title.appendChild(p);
+      //  p.innerText="Graphic Designer in Philadelphia, PA";
+      //  div_title.setAttribute('class','div_title');
+      //  p.setAttribute('class','p_title');
 
-       var div_range = document.createElement('div');
-       frontpage.appendChild(div_range);
-       div_range.setAttribute('class','div_range');
+      //  var img_map = document.createElement('img');
+      //  frontpage.appendChild(img_map);
+      //  img_map.src='./map.png';
+      //  img_map.setAttribute('class','map');
 
-       var ul = document.createElement('ul');
-       div_range.appendChild(ul);
-       var headers = ["National:","Philadelphia,PA:"];
+      //  var div_range = document.createElement('div');
+      //  frontpage.appendChild(div_range);
+      //  div_range.setAttribute('class','div_range');
+       //
+      //  var ul = document.createElement('ul');
+      //  div_range.appendChild(ul);
+      //  var headers = ["National:","Philadelphia,PA:"];
+       //
+      //  headers.forEach(function(lis)
+      //  {
+      //    var li = document.createElement('li');
+      //    ul.appendChild(li);
+      //    li.innerText=lis;
+      //    li.setAttribute('class','location');
+       //
+      //  });
+       //
+      //  var div_inner_range = document.createElement('div');
+      //  div_range.appendChild(div_inner_range);
+      //  div_inner_range.setAttribute('class','div_inner_range');
+       //
+      //  var salary_range = ['$23,800__________|___________$96,000','$34,000_____|________________$67,000']
+       //
+      //  salary_range.forEach(function(sal)
+      //  {
+      //    var div_sal = document.createElement('div');
+      //    div_inner_range.appendChild(div_sal);
+      //    div_sal.setAttribute('class','div_sal');
+      //    var p = document.createElement('p');
+      //    div_sal.appendChild(p);
+      //    p.innerText=sal;
+      //    p.setAttribute('class','p_sal')
+      //  });
 
-       headers.forEach(function(lis)
-       {
-         var li = document.createElement('li');
-         ul.appendChild(li);
-         li.innerText=lis;
-         li.setAttribute('class','location');
-
-       });
-
-       var div_inner_range = document.createElement('div');
-       div_range.appendChild(div_inner_range);
-       div_inner_range.setAttribute('class','div_inner_range');
-
-       var salary_range = ['$23,800__________|___________$96,000','$34,000_____|________________$67,000']
-
-       salary_range.forEach(function(sal)
-       {
-         var div_sal = document.createElement('div');
-         div_inner_range.appendChild(div_sal);
-         div_sal.setAttribute('class','div_sal');
-         var p = document.createElement('p');
-         div_sal.appendChild(p);
-         p.innerText=sal;
-         p.setAttribute('class','p_sal')
-       });
-
-     }
+    //  }
 
      </script>
      <script type="text/javascript" src="dist/skrollr.min.js"></script>
