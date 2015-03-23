@@ -351,14 +351,11 @@ h2{
          var createPage = function(value_input)
            {
 
-             var d = xhr.responseText;
-             var min_max = JSON.parse(d);
-             console.log(min_max);
-             var domain = _.find(min_max, function(o){return o.county_c_id==='DP03_0062E';});
+
              var rateById = d3.map();
 
              var quantize = d3.scale.quantize()
-             .domain([domain.county_min,domain.county_max])
+             .domain([15000,100000])
              .range(d3.range(5).map(function(i){return "q"+i+"-9"}));
 
              var projection = d3.geo.albersUsa()
