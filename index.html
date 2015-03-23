@@ -351,11 +351,6 @@ h2{
          var createPage = function(value_input)
            {
 
-           var xhr = new XMLHttpRequest();
-           xhr.open("GET","http://gabriel.princesspeach.nyc:4000/DP03_0062E");
-           xhr.send();
-           xhr.addEventListener("load",function(e)
-             {
              var d = xhr.responseText;
              var min_max = JSON.parse(d);
              console.log(min_max);
@@ -389,7 +384,6 @@ h2{
 
              function ready(err,usa,json)
                {
-
                json.forEach(function(obj)
                  {
                  rateById.set(obj.id,+obj.rate);
@@ -404,8 +398,6 @@ h2{
 
                  header2.html('Where you can afford to live...');
                  header3.html('counties in the US with median incomes below $'+input.value);
-
-
 
                  d3.selectAll('.title_header')
                  .attr("class", 'first_dataset');
@@ -424,8 +416,6 @@ h2{
                };
                d3.selectAll(".first_dataset")
                .style('display','none');
-
-             });
 
            };
 
