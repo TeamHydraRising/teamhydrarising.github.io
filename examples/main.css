@@ -20,11 +20,11 @@ html, body {
 
 body {
 	background: #eeeeee;
-	background: -webkit-linear-gradient(top, #eeeeee, #cccccc 100%);
-	background: -moz-linear-gradient(top, #eeeeee, #cccccc 100%);
-	background: -o-linear-gradient(top, #eeeeee, #cccccc 100%);
-	background: -ms-linear-gradient(top, #eeeeee, #cccccc 100%);
-	background: linear-gradient(top, #eeeeee, #cccccc 100%);
+	background: -webkit-linear-gradient(left, #FFFFFF, #cccccc 100%);
+	background: -moz-linear-gradient(left, #FFFFFF, #cccccc 100%);
+	background: -o-linear-gradient(left, #FFFFFF, #cccccc 100%);
+	background: -ms-linear-gradient(left, #FFFFFF, #cccccc 100%);
+	background: linear-gradient(left, #FFFFFF, #cccccc 100%);
 	background-attachment:fixed;
 }
 

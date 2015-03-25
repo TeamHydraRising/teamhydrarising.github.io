@@ -19,6 +19,7 @@
     html{
       width:5200px;
       height:300px;
+      overflow:auto;
     }
 
     li{
@@ -31,7 +32,7 @@
     }
 
     .questions{
-      background-color:#E56F0F;
+      background-color:#3B539B;
         /*opacity: .1;*/
       margin-top: 4%;
       margin-left: 100px;
@@ -39,7 +40,7 @@
       width: 600px;
       display: inline-table;
       position:relative;
-      border: 5px solid lightgrey;
+      border: 7px solid #67809F;
       border-radius:15px;
     }
 
@@ -107,7 +108,6 @@
       font-size: 18px;
       position: absolute;
       margin-top: 20px;
-
       left:4950px;
       width:200px;
       background: grey;
@@ -137,19 +137,8 @@
     }
 
   body{
-    /*background-color:#f0f4f4;*/
-    /*background-color:lightgrey;*/
-    background: rgb(226,163,4); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(226,163,4,1) 0%, rgba(234,0,39,1) 58%, rgba(137,2,5,1) 96%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,163,4,1)), color-stop(58%,rgba(234,0,39,1)), color-stop(96%,rgba(137,2,5,1))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(226,163,4,1) 0%,rgba(234,0,39,1) 58%,rgba(137,2,5,1) 96%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2a304', endColorstr='#890205',GradientType=0 ); /* IE6-9 */
-
-    /*background-image: url('http://www.som.com/FILE/19707/somlondonofficebroadgatetower_1575x900_nickguttridge01jpg.jpg?h=800&s=17');*/
-  }
+    background-color:#FFFFFF;
+    }
 
   .dot{
     background-color:red;
@@ -301,7 +290,57 @@ h2{
   margin-left:0px;
 }*/
 
+#logo{
+  background-color: #67809F;
+  width:370%;
+  height:100px;
+  display: inline-block;
+  position:absolute;
+  top:0%;
+}
 
+#description{
+  height:100%;
+  width:200px;
+  left:0px;
+  top:100px;
+  position:absolute;
+  background-color:#34495E;
+}
+
+h1{
+  font-family: Avenir Next;
+  color:#f0f4f4;
+  margin-left: 20px;
+  margin-top:20px;
+}
+
+
+/*#description:hover{
+  height:100%;
+  width:250px;
+  left:0px;
+  top:100px;
+  position:absolute;
+  background-color:#34495E;
+}*/
+
+#descript_text{
+  color:#34495E;
+  font-size: 12px;
+  margin-left:10px;
+  margin-right:10px;
+}
+
+#descript_text:hover{
+  color:#f0f4f4;
+}
+
+#about{
+  margin-left:10px;
+  margin-right:10px;
+  color:white;
+}
 
 
 .q0-9 { fill:#004F44; }
@@ -318,8 +357,6 @@ h2{
     </style>
   </head>
   <body id ="frontpage">
-
-
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="./jquery-scrollto/lib/jquery-scrollto.js"></script>
   <script src="./d3js.org/d3.v3.min.js"></script>
@@ -328,6 +365,7 @@ h2{
   <script src="./underscore/underscore-min.js"></script>
 <script>
      var frontpage = document.querySelector('#frontpage');
+
      var race = ['Black or African-American','Asian','Hispanic or Latino','White or Caucasian','Native American','Alaskan Native','Native Hawaiian','Other Pacific Islander','I prefer not to answer'];
      var dummy = [];
      var gender = ['Male','Female','I prefer not to identify'];
@@ -350,8 +388,6 @@ h2{
        {
          var createPage = function(value_input)
            {
-
-
              var rateById = d3.map();
 
              var quantize = d3.scale.quantize()
@@ -418,11 +454,13 @@ h2{
 
          if(div.id!=='gender')
          {
+
          var input = document.createElement('input');
          div.appendChild(input);
 
          input.placeholder = this.placeholder;
          var value_input = input.value;
+         input.id=this.id+'_input';
 
          var button = document.createElement('button');
          div.appendChild(button);
@@ -433,46 +471,56 @@ h2{
          p.innerText='▶';
          button.setAttribute('class',"scroll_button");
 
-        button.onclick = function()
-        {
-         var element = $('#'+next_div);
-         var classes = element[0].classList;
-         element[0].setAttribute('class',classes[0]+" "+classes[1]+" "+classes[2]+" selected");
-         var not_selected = $('.questions');
-
-         for(i=0;i<not_selected.length;i++)
+         var click_event = function()
          {
-           if(not_selected[i]!==element[0])
+           var element = $('#'+next_div);
+           var classes = element[0].classList;
+           element[0].setAttribute('class',classes[0]+" "+classes[1]+" "+classes[2]+" selected");
+           var not_selected = $('.questions');
+
+           for(i=0;i<not_selected.length;i++)
            {
-             not_selected[i].setAttribute('class',not_selected[i].classList[0]+" "+not_selected[i].classList[1]+" "+not_selected[i].classList[2]+' not_selected');
+             if(not_selected[i]!==element[0])
+             {
+               not_selected[i].setAttribute('class',not_selected[i].classList[0]+" "+not_selected[i].classList[1]+" "+not_selected[i].classList[2]+' not_selected');
+             }
            }
-         }
 
-         $('.not_selected').animate(
-           {opacity: .25} ,{
-             duration:1000
-           });
+           $('.not_selected').animate(
+             {opacity: .25} ,{
+               duration:1000
+             });
 
-        setTimeout(function(){window.scrollTo(700*num,0);},200);
+          setTimeout(function(){window.scrollTo(700*num,0);},200);
 
-        $('.selected').animate(
-          {opacity: 1}, {
-              duration:1000
-          });
-                //  $.ajax({
-                //    method: 'GET',
-                //    url: 'https://agile-eyrie-4387.herokuapp.com/locations',
-                //    data: {zipcode:'10030'}
-                //  })
-                //  .done(function(msg)
-                //  {
-                //    console.log(msg);
-                //  })
+          $('.selected').animate(
+            {opacity: 1}, {
+                duration:1000
+            });
+                  //  $.ajax({
+                  //    method: 'GET',
+                  //    url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                  //    data: {zipcode:'10030'}
+                  //  })
+                  //  .done(function(msg)
+                  //  {
+                  //    console.log(msg);
+                  //  })
          };
+
+        button.onclick = click_event;
+
+
+        input.onkeydown = function(evt)
+        {
+          if(evt.keyCode===9)
+          {
+            click_event();
+          };
+        };
 
          if(div.id==='what_salary')
          {
-
          var div_dynam = document.createElement('div');
          frontpage.appendChild(div_dynam);
          div_dynam.id="dynamic";
@@ -487,7 +535,7 @@ h2{
 
            input.addEventListener('keydown',function(evt)
            {
-             if(evt.keyCode===13)
+             if(evt.keyCode===9)
              {
              console.log(input.value);
              createPage(value_input);
@@ -499,9 +547,8 @@ h2{
          {
          input.addEventListener('keydown',function(evt)
          {
-           if(evt.keyCode===13)
            {
-           console.log(input.value);
+
            var xhr = new XMLHttpRequest();
            xhr.open("GET","http://api.census.gov/data/2013/acs5/profile?get=DP03_0062E&for=zip+code+tabulation+area:"+input.value);
            xhr.send();
@@ -570,23 +617,15 @@ h2{
 
                    });
 
-
                  });
-
-
-
                  //
                 //  d3.selectAll('.title_header')
                 //  .attr("class", 'first_dataset');
                };
              });
-
            };
          });
          };
-
-
-
        };
 
        },
@@ -610,11 +649,10 @@ h2{
            li.id="checkbox_list";
          });
        },
-       this.select = function(div)
+       this.select = function(div,input)
        {
          if(div.id==="what_salary")
          {
-
          var div_wages = document.createElement('div');
          div.appendChild(div_wages);
          div_wages.id="div_wages";
@@ -674,43 +712,56 @@ h2{
            button.setAttribute('class',"scroll_button");
            p.id="triangle";
 
-           button.onclick = function()
-           {
-            var element = $('#'+next_div);
-            var classes = element[0].classList;
-            element[0].setAttribute('class',classes[0]+" "+classes[1]+" "+classes[2]+" selected");
-            var not_selected = $('.questions');
+           button.onclick = function(evt)
+             {
 
-            for(i=0;i<not_selected.length;i++)
-            {
-              if(not_selected[i]!==element[0])
+              if (evt)
               {
-                not_selected[i].setAttribute('class',not_selected[i].classList[0]+" "+not_selected[i].classList[1]+" "+not_selected[i].classList[2]+' not_selected');
+              var element = $('#'+next_div);
+              console.log(element);
+              var classes = element[0].classList;
+              element[0].setAttribute('class',classes[0]+" "+classes[1]+" "+classes[2]+" selected");
+              var not_selected = $('.questions');
+
+              for(i=0;i<not_selected.length;i++)
+              {
+                if(not_selected[i]!==element[0])
+                {
+                  not_selected[i].setAttribute('class',not_selected[i].classList[0]+" "+not_selected[i].classList[1]+" "+not_selected[i].classList[2]+' not_selected');
+                }
               }
-            }
 
-            $('.not_selected').animate(
-              {opacity: .25} ,{
-                duration:1000
-              });
+              $('.not_selected').animate(
+                {opacity: .25} ,{
+                  duration:1000
+                });
 
 
-           setTimeout(function(){window.scrollTo(700*num,0);},200);
+             setTimeout(function(){window.scrollTo(700*num,0);},200);
 
-           $('.selected').animate(
-             {opacity: 1}, {
-                 duration:1000
-             });
-                    // $.ajax({
-                    //   method: 'GET',
-                    //   url: 'https://agile-eyrie-4387.herokuapp.com/locations',
-                    //   data: {zipcode:'10030'}
-                    // })
-                    // .done(function(msg)
-                    // {
-                    //   console.log(msg);
-                    // })
-            };
+             $('.selected').animate(
+               {opacity: 1}, {
+                   duration:1000
+               });
+                      // $.ajax({
+                      //   method: 'GET',
+                      //   url: 'https://agile-eyrie-4387.herokuapp.com/locations',
+                      //   data: {zipcode:'10030'}
+                      // })
+                      // .done(function(msg)
+                      // {
+                      //   console.log(msg);
+                      // })
+              };
+           };
+
+          //  var input = document.querySelector('input');
+
+          //  checkbox.addEventListener('keydown',function(evt)
+          //  {
+          //    if(evt.keyCode===9)
+          //    click_event;
+          //  });
 
          });
 
@@ -734,7 +785,27 @@ h2{
 
      frontpage.appendChild(ul);
 
+     var nav = document.createElement('nav');
+     frontpage.appendChild(nav);
+     nav.id='logo';
 
+     var descript = document.createElement('nav');
+     frontpage.appendChild(descript);
+     descript.id='description';
+
+     var h1 = document.createElement('h1');
+     nav.appendChild(h1);
+     h1.innerText="Salary Checker";
+
+     var p1 = document.createElement('p');
+     descript.appendChild(p1);
+     p1.innerText="\n\nClick here to learn about this webpage!";
+     p1.id="about";
+
+     var p = document.createElement('p');
+     descript.appendChild(p);
+     p.innerText="\n\nWelcome to Salary Checker!\n\nTo Use our Form, please type in your anonymous data into each box, to scroll to the next question, hit on the 'TAB' key or click on the white Triangle";
+     p.id='descript_text';
 
      questions.forEach(function(obj)
      {
