@@ -292,20 +292,23 @@ h2{
 
 #logo{
   background-color: #67809F;
-  width:370%;
+  width:80%;
   height:100px;
   display: inline-block;
   position:absolute;
   top:0%;
+  border-radius: 15px;
 }
 
 #description{
-  height:100%;
+  margin-top: 100px;
+  height:25%;
   width:200px;
   left:0px;
   top:100px;
   position:absolute;
   background-color:#34495E;
+  border-radius: 15px;
 }
 
 h1{
@@ -316,14 +319,10 @@ h1{
 }
 
 
-/*#description:hover{
-  height:100%;
-  width:250px;
-  left:0px;
-  top:100px;
-  position:absolute;
-  background-color:#34495E;
-}*/
+#description:hover{
+  height:40%;
+
+}
 
 #descript_text{
   color:#34495E;
@@ -353,6 +352,13 @@ h1{
 .q7-9 { fill:#FF473D; }
 .q8-9 { fill:#FF180E; }
 .q9-9 { fill:#BF0A00; }
+
+#other_people{
+  margin-left:225px;
+  margin-top: 0px;
+  color: lightgrey;
+
+}
 
     </style>
   </head>
@@ -797,14 +803,19 @@ h1{
      nav.appendChild(h1);
      h1.innerText="Salary Checker";
 
+     var h3 = document.createElement('h3');
+     nav.appendChild(h3);
+     h3.innerText="Curious about how much $$$ other people make?";
+     h3.id='other_people';
+
      var p1 = document.createElement('p');
      descript.appendChild(p1);
-     p1.innerText="\n\nClick here to learn about this webpage!";
+     p1.innerText="\n\nTake 3 minutes to let us know more about you, and we’ll let you know how you stack up!\n\nYour answers will be kept strictly confidential and will only be used in aggregate.\n\nCheck Below to learn how to use this form.";
      p1.id="about";
 
      var p = document.createElement('p');
      descript.appendChild(p);
-     p.innerText="\n\nWelcome to Salary Checker!\n\nTo Use our Form, please type in your anonymous data into each box, to scroll to the next question, hit on the 'TAB' key or click on the white Triangle";
+     p.innerText="\n\nTo Use our Form, please type in your anonymous data into each box, to scroll to the next question, hit on the 'TAB' key or click on the white Triangle";
      p.id='descript_text';
 
      questions.forEach(function(obj)
